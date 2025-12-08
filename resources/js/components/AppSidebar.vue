@@ -1,4 +1,4 @@
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';

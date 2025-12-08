@@ -46,7 +46,7 @@
     </div>
 </template>
 
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import Sidebar from '@/components/Sidebar.vue';
 import Header from '@/components/Header.vue';

@@ -68,7 +68,7 @@
     </header>
 </template>
 
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { Link, router } from '@inertiajs/vue3';
 import {

@@ -1,4 +1,4 @@
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 import { computed } from 'vue';
 
 const patternId = computed(

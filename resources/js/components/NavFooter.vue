@@ -1,4 +1,4 @@
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 import { toUrl } from '@/lib/utils';
 import { type NavItem } from '@/types';
 

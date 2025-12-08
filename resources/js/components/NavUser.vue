@@ -1,4 +1,4 @@
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 import UserInfo from '@/components/UserInfo.vue';
 import { usePage } from '@inertiajs/vue3';
 import { ChevronsUpDown } from 'lucide-vue-next';

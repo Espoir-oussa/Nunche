@@ -1,4 +1,4 @@
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 import AlertError from '@/components/AlertError.vue';
 import { useTwoFactorAuth } from '@/composables/useTwoFactorAuth';
 import { regenerateRecoveryCodes } from '@/routes/two-factor';

@@ -175,7 +175,7 @@
     </div>
 </template>
 
-<script setup lang ="ts" lang="ts">
+<script setup lang ="ts">
 import { Link, router, usePage } from '@inertiajs/vue3';
 import {
     LayoutDashboardIcon,
@@ -191,7 +191,7 @@ import {
     ChevronDownIcon,
     HomeIcon
 } from 'lucide-vue-next';
-import { ref, reactive, watch, onMounted } from 'vue';
+import { reactive, onMounted } from 'vue';
 
 defineProps<{
     isOpen: boolean;
@@ -211,7 +211,7 @@ const openSections = reactive({
 // Fonction pour basculer une section
 const toggleSection = (section: keyof typeof openSections) => {
     // Optionnel: fermer les autres sections quand on ouvre une nouvelle
-    Object.keys(openSections).forEach(key => {
+    (Object.keys(openSections) as Array<keyof typeof openSections>).forEach(key => {
         if (key !== section) {
             openSections[key] = false;
         }

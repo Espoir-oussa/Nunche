@@ -105,6 +105,7 @@ import InputLabel from '@/components/InputLabel.vue';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import TextInput from '@/components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
+import { route } from 'ziggy-js';
 import { User, Mail, Save, CheckCircle, AlertCircle } from 'lucide-vue-next';
 
 defineProps({

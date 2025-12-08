@@ -93,11 +93,12 @@
   </div>
 </template>
 
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import InputError from '@/components/InputError.vue';
 import InputLabel from '@/components/InputLabel.vue';
 import TextInput from '@/components/TextInput.vue';
+import { route } from 'ziggy-js';
 
 const form = useForm({
   password: '',

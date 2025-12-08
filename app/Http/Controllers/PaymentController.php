@@ -7,6 +7,7 @@ use App\Models\Paiement;
 use App\Enums\PaiementStatut;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use FedaPay\FedaPay;
 use FedaPay\Transaction;
 
@@ -57,17 +58,17 @@ class PaymentController extends Controller
             if ($transaction->status === 'approved') {
                 $contenu = Contenu::findOrFail($contenuId);
                 $paiement = Paiement::create([
-                    'user_id' => auth()->id(),
+                    'user_id' => Auth::id(),
                     'contenu_id' => $contenu->id,
                     'montant' => $transaction->amount ??  100,
                     'statut' => PaiementStatut::SUCCESS->value,
-                    'numero' => $transaction->customer['phone_number']['number'] ?? auth()->user()->email,
+                    'numero' => $transaction->customer['phone_number']['number'] ?? Auth::user()->email,
                     'paiement_methode' => $transaction->mode ?? 'mobile_money',
                     'transaction_id' => $transactionId,
                 ]);
                 Log::info('Paiement enregistré avec succès', [
                     'paiement_id' => $paiement->id,
-                    'user_id' => auth()->id(),
+                    'user_id' => Auth::id(),
                     'contenu_id' => $contenu->id,
                     'statut' => PaiementStatut::SUCCESS->value
                 ]);
@@ -78,11 +79,11 @@ class PaymentController extends Controller
                 Paiement::updateOrCreate(
                     ['transaction_id' => $transactionId],
                     [
-                        'user_id' => auth()->id(),
+                        'user_id' => Auth::id(),
                         'contenu_id' => $contenuId,
                         'montant' => $transaction->amount ?? 100,
                         'statut' => PaiementStatut::PENDING->value,
-                        'numero' => auth()->user()->email,
+                        'numero' => Auth::user()->email,
                         'paiement_methode' => $transaction->mode ?? 'mobile_money',
                     ]
                 );
@@ -96,11 +97,11 @@ class PaymentController extends Controller
                 Paiement::updateOrCreate(
                     ['transaction_id' => $transactionId],
                     [
-                        'user_id' => auth()->id(),
+                        'user_id' => Auth::id(),
                         'contenu_id' => $contenuId,
                         'montant' => $transaction->amount ?? 100,
                         'statut' => PaiementStatut::FAILED->value,
-                        'numero' => auth()->user()->email,
+                        'numero' => Auth::user()->email,
                         'paiement_methode' => $transaction->mode ?? 'mobile_money',
                     ]
                 );

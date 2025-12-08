@@ -61,7 +61,7 @@
   </div>
 </template>
 
-<script setup lang ="ts" lang="ts">
+<script setup lang ="ts">
 import { ref } from 'vue'
 
 const showModal = ref(false)
@@ -71,10 +71,7 @@ function openModal(contenu: any) {
   modalContenu.value = contenu
   showModal.value = true
 }
-function closeModal() {
-  showModal.value = false
-  modalContenu.value = null
-}
+// ...existing code...
 
 function isImage(path: string) {
   return /\.(jpg|jpeg|png|gif)$/i.test(path)

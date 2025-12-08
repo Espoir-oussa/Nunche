@@ -128,7 +128,7 @@
     </DashboardLayout>
 </template>
 
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 import DashboardLayout from '@/layouts/DashboardLayout.vue';
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';

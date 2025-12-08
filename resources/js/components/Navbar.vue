@@ -41,7 +41,7 @@
         <div
           v-if="isMenuOpen"
           class="absolute top-full right-0 mt-2 bg-white/95 backdrop-blur-lg rounded-xl shadow-xl border border-gray-200 py-3 animate-fade-in w-48 sm:w-56"
-          @click.away="isMenuOpen = false"
+          @mousedown.self="isMenuOpen = false"
         >
           <div class="flex flex-col space-y-2 px-3">
             <!-- Liens pour utilisateur connecté -->
@@ -129,12 +129,11 @@
   </nav>
 </template>
 
-<script setup lang ="ts" lang="ts">
+<script setup lang ="ts">
 import { Link, usePage } from '@inertiajs/vue3'
 import {
   MenuIcon,
   LayoutDashboard,
-  User,
   LogOut,
   LogIn,
   UserPlus
@@ -166,7 +165,7 @@ onUnmounted(() => {
 })
 
 const $page = usePage()
-const user = computed(() => $page.props.auth.user)
+const user = computed(() => $page.props.auth.user as any)
 const isAdmin = computed(() => user.value && user.value.role === 'admin')
 </script>
 

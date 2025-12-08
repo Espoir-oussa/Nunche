@@ -396,9 +396,9 @@
   </div>
 </template>
 
-<script setup lang ="ts" lang="ts">
+<script setup lang ="ts">
 import { ref, computed, onMounted } from 'vue'
-import { router, Link } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import {
@@ -417,7 +417,7 @@ import {
   FileSearch,
   ChevronLeft,
   ChevronRight,
-  Plus
+  // Plus
 } from 'lucide-vue-next'
 
 const { contents, contentsCount, regions, types, search, langues: propLangues } = defineProps<{
@@ -473,8 +473,8 @@ const visiblePages = computed(() => {
   const current = contents.current_page
   const last = contents.last_page
   const delta = 2
-  const range = []
-  const rangeWithDots = []
+  const range: number[] = []
+  const rangeWithDots: (number | string)[] = []
 
   for (let i = 1; i <= last; i++) {
     if (i === 1 || i === last || (i >= current - delta && i <= current + delta)) {

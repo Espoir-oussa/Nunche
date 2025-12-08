@@ -140,7 +140,7 @@
   </DashboardLayout>
 </template>
 
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 import DashboardLayout from '@/Layouts/DashboardLayout.vue';
 import { Link, useForm } from '@inertiajs/vue3';
 import { route } from 'ziggy-js';

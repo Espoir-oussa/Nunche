@@ -87,17 +87,19 @@
     </section>
 </template>
 
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 import InputError from '@/components/InputError.vue';
 import InputLabel from '@/components/InputLabel.vue';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import TextInput from '@/components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import { route } from 'ziggy-js';
+import type { Ref } from 'vue';
 import { Lock, Save, CheckCircle } from 'lucide-vue-next';
 
-const passwordInput = ref(null);
-const currentPasswordInput = ref(null);
+const passwordInput: Ref<HTMLInputElement | null> = ref(null);
+const currentPasswordInput: Ref<HTMLInputElement | null> = ref(null);
 
 const form = useForm({
     current_password: '',
@@ -112,11 +114,11 @@ const updatePassword = () => {
         onError: () => {
             if (form.errors.password) {
                 form.reset('password', 'password_confirmation');
-                passwordInput.value.focus();
+                if (passwordInput.value) passwordInput.value.focus();
             }
             if (form.errors.current_password) {
                 form.reset('current_password');
-                currentPasswordInput.value.focus();
+                if (currentPasswordInput.value) currentPasswordInput.value.focus();
             }
         },
     });

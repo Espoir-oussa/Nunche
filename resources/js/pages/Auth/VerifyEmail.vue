@@ -1,8 +1,9 @@
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 import { computed } from 'vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 import PrimaryButton from '@/components/PrimaryButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { route } from 'ziggy-js';
 
 const props = defineProps({
     status: {

@@ -120,8 +120,9 @@
   </div>
 </template>
 
-<script setup lang ="ts" lang="ts">
+<script setup lang ="ts">
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { route } from 'ziggy-js';
 import Checkbox from '@/components/Checkbox.vue';
 import InputError from '@/components/InputError.vue';
 import InputLabel from '@/components/InputLabel.vue';

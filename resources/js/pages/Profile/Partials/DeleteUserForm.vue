@@ -1,4 +1,4 @@
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 import DangerButton from '@/components/DangerButton.vue';
 import InputError from '@/components/InputError.vue';
 import InputLabel from '@/components/InputLabel.vue';
@@ -6,10 +6,12 @@ import Modal from '@/components/Modal.vue';
 import SecondaryButton from '@/components/SecondaryButton.vue';
 import TextInput from '@/components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
+import { route } from 'ziggy-js';
 import { nextTick, ref } from 'vue';
 
 const confirmingUserDeletion = ref(false);
-const passwordInput = ref(null);
+import type { Ref } from 'vue';
+const passwordInput: Ref<HTMLInputElement | null> = ref(null);
 
 const form = useForm({
     password: '',
@@ -18,14 +20,18 @@ const form = useForm({
 const confirmUserDeletion = () => {
     confirmingUserDeletion.value = true;
 
-    nextTick(() => passwordInput.value.focus());
+    nextTick(() => {
+        if (passwordInput.value) passwordInput.value.focus();
+    });
 };
 
 const deleteUser = () => {
     form.delete(route('profile.destroy'), {
         preserveScroll: true,
         onSuccess: () => closeModal(),
-        onError: () => passwordInput.value.focus(),
+        onError: () => {
+            if (passwordInput.value) passwordInput.value.focus();
+        },
         onFinish: () => form.reset(),
     });
 };

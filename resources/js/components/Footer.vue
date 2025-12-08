@@ -8,6 +8,6 @@
   </footer>
 </template>
 
-<script setup lang ="ts" lang="ts">
+<script setup lang="ts">
 // Le footer n'a pas besoin de logique complexe
 </script>
