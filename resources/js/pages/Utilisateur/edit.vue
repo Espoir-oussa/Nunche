@@ -161,7 +161,7 @@
   </DashboardLayout>
 </template>
 
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import DashboardLayout from '@/layouts/DashboardLayout.vue';
 import { Link, router } from '@inertiajs/vue3';
 import { reactive } from 'vue';

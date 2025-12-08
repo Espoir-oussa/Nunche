@@ -122,7 +122,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import { Link } from '@inertiajs/vue3'
 import { UserIcon, CalendarIcon, LockIcon, MusicIcon, VideoIcon } from 'lucide-vue-next'
 import Navbar from '@/components/Navbar.vue'

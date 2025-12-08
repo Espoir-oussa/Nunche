@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 interface Props {
     title: string;
     description?: string;

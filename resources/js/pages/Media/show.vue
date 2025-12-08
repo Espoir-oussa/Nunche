@@ -123,7 +123,7 @@
   </DashboardLayout>
 </template>
 
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import { route } from 'ziggy-js';
 import {
   ImageIcon,

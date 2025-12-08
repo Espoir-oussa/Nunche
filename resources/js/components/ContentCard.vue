@@ -61,7 +61,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import { ref } from 'vue'
 
 const showModal = ref(false)

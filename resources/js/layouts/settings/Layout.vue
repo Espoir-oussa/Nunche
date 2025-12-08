@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import Heading from '@/components/Heading.vue';
 import { urlIsActive } from '@/lib/utils';
 import { edit as editAppearance } from '@/routes/appearance';

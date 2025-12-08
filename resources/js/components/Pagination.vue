@@ -15,6 +15,6 @@
   </nav>
 </template>
 
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 defineProps<{ links: any[] }>()
 </script>

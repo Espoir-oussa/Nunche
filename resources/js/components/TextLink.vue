@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import { LinkComponentBaseProps, Method } from '@inertiajs/core';
 import { Link } from '@inertiajs/vue3';
 

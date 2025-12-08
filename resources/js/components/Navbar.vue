@@ -129,7 +129,7 @@
   </nav>
 </template>
 
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import { Link, usePage } from '@inertiajs/vue3'
 import {
   MenuIcon,

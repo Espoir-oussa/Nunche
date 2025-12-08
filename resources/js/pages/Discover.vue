@@ -396,7 +396,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { router, Link } from '@inertiajs/vue3'
 import Navbar from '@/components/Navbar.vue'

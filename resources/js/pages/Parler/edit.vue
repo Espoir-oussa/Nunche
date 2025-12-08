@@ -24,7 +24,7 @@
   </DashboardLayout>
 </template>
 
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import { useForm, Link } from '@inertiajs/vue3';
 import DashboardLayout from '@/layouts/DashboardLayout.vue';
 import { route } from 'ziggy-js';

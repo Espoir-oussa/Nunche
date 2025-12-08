@@ -112,7 +112,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import InputError from '@/components/InputError.vue';
 import InputLabel from '@/components/InputLabel.vue';

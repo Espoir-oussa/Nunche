@@ -120,7 +120,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import Checkbox from '@/components/Checkbox.vue';
 import InputError from '@/components/InputError.vue';

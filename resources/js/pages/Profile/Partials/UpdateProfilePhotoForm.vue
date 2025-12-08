@@ -100,11 +100,11 @@
     </section>
 </template>
 
-<script setup>
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
+<script setup lang ="ts">
+import InputError from '@/components/InputError.vue';
+import InputLabel from '@/components/InputLabel.vue';
+import PrimaryButton from '@/components/PrimaryButton.vue';
+import SecondaryButton from '@/components/SecondaryButton.vue';
 import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { Upload, Trash2, Save } from 'lucide-vue-next';

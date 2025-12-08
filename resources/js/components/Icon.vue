@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import { cn } from '@/lib/utils';
 import * as icons from 'lucide-vue-next';
 import { computed } from 'vue';

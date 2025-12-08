@@ -226,7 +226,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 const showModal = ref(false)
 const modalContenu = ref<any>(null)
 

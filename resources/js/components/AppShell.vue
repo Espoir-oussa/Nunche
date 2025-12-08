@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import { usePage } from '@inertiajs/vue3';
 
 interface Props {

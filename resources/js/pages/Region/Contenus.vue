@@ -248,7 +248,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang ="ts" lang="ts">
 import { ref, computed } from 'vue';
 import { usePage, router, Link } from '@inertiajs/vue3';
 import Navbar from '@/components/Navbar.vue';
