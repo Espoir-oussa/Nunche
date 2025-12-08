@@ -448,7 +448,7 @@ const langues = computed(() => {
   if (!contents.data) return []
 
   const uniqueLangues = new Map()
-  contents.data.forEach(contenu => {
+  contents.data.forEach((contenu: any) => {
     if (contenu.langue) {
       uniqueLangues.set(contenu.langue.id, contenu.langue)
     }
@@ -620,6 +620,8 @@ onMounted(() => {
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

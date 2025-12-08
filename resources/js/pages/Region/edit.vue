@@ -178,7 +178,7 @@ import {
   Save,
   ArrowLeft
 } from 'lucide-vue-next';
-import { computed, watch } from 'vue';
+import { watch } from 'vue';
 
 const props = defineProps<{
   region: {

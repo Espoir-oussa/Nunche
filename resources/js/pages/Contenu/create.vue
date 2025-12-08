@@ -295,12 +295,12 @@ import {
 } from 'lucide-vue-next';
 
 const props = defineProps<{
+  parents: any[];
   regions: any[];
   langues: any[];
-  moderateurs: any[];
   types: any[];
   auteurs: any[];
-  parents: any[];
+  moderateurs: any[];
 }>();
 
 const form = useForm({
@@ -315,16 +315,12 @@ const form = useForm({
   moderateur_id: '',
   type_contenu_id: '',
   auteur_id: '',
-  media: null,
+  media: null as File | null,
 });
 
 function onFileChange(e: Event) {
   const target = e.target as HTMLInputElement;
-  if (target.files && target.files.length > 0) {
-    form.media = target.files[0];
-  } else {
-    form.media = null;
-  }
+  form.media = target.files && target.files.length > 0 ? target.files[0] : null;
 }
 
 function submit() {

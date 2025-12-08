@@ -277,16 +277,7 @@ const selectedType = ref<number | null>(null);
 const selectedLangue = ref<number | null>(null);
 
 // Compute types and langues from contenus if not provided
-const types = computed(() => {
-  if (props.types) return props.types;
-  const uniqueTypes = new Map();
-  props.contenus.forEach(contenu => {
-    if (contenu.type_contenu) {
-      uniqueTypes.set(contenu.type_contenu.id, contenu.type_contenu);
-    }
-  });
-  return Array.from(uniqueTypes.values());
-});
+// Variable inutilisée supprimée
 
 const langues = computed(() => {
   if (props.langues) return props.langues;
