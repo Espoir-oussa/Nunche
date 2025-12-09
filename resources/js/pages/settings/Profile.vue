@@ -1,7 +1,5 @@
 <script setup lang="ts">
-// Import supprimé : le contrôleur n'existe pas côté front
-// import supprimé : le fichier n'existe pas
-import { send } from '@/routes/verification';
+// import { send } from '@/routes/verification'; // supprimé : fichier inexistant
 import { Form, Head, Link, usePage } from '@inertiajs/vue3';
 
 import DeleteUser from '@/components/DeleteUser.vue';
@@ -79,11 +77,11 @@ const user = page.props.auth.user;
                         <p class="-mt-4 text-sm text-muted-foreground">
                             Your email address is unverified.
                             <Link
-                                :href="send()"
                                 as="button"
                                 class="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current!"
+                                disabled
                             >
-                                Click here to resend the verification email.
+                                Vérification email désactivée (fonction manquante)
                             </Link>
                         </p>
 
