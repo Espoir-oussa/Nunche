@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
+// Import supprimé : le contrôleur n'existe pas côté front
 import { edit } from '@/routes/profile';
 import { send } from '@/routes/verification';
 import { Form, Head, Link, usePage } from '@inertiajs/vue3';
@@ -41,7 +41,8 @@ const user = page.props.auth.user;
                 />
 
                 <Form
-                    v-bind="ProfileController.update.form()"
+                    action="/user/profile"
+                    method="post"
                     class="space-y-6"
                     v-slot="{ errors, processing, recentlySuccessful }"
                 >
