@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Heading from '@/components/Heading.vue';
 import { urlIsActive } from '@/lib/utils';
-import { edit as editAppearance } from '@/routes/appearance';
+// import manquant supprimé : '@/routes/appearance'
 import { edit as editProfile } from '@/routes/profile';
 import { show } from '@/routes/two-factor';
 import { edit as editPassword } from '@/routes/user-password';
@@ -23,7 +23,7 @@ const sidebarNavItems: NavItem[] = [
     },
     {
         title: 'Appearance',
-        href: editAppearance(),
+        href: '#', // lien désactivé, à adapter si besoin
     },
 ];
 
