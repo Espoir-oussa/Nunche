@@ -1,4 +1,4 @@
-import { qrCode, recoveryCodes, secretKey } from '@/routes/two-factor';
+// import manquant supprimé. Remplacer les URLs par des valeurs factices.
 import { computed, ref } from 'vue';
 
 const fetchJson = async <T>(url: string): Promise<T> => {
@@ -26,7 +26,7 @@ export const useTwoFactorAuth = () => {
     const fetchQrCode = async (): Promise<void> => {
         try {
             const { svg } = await fetchJson<{ svg: string; url: string }>(
-                qrCode.url(),
+                '/api/two-factor/qr', // URL factice à adapter selon votre backend
             );
 
             qrCodeSvg.value = svg;
@@ -39,7 +39,7 @@ export const useTwoFactorAuth = () => {
     const fetchSetupKey = async (): Promise<void> => {
         try {
             const { secretKey: key } = await fetchJson<{ secretKey: string }>(
-                secretKey.url(),
+                '/api/two-factor/secret', // URL factice à adapter selon votre backend
             );
 
             manualSetupKey.value = key;
@@ -69,7 +69,7 @@ export const useTwoFactorAuth = () => {
         try {
             clearErrors();
             recoveryCodesList.value = await fetchJson<string[]>(
-                recoveryCodes.url(),
+                '/api/two-factor/recovery-codes', // URL factice à adapter selon votre backend
             );
         } catch {
             errors.value.push('Failed to fetch recovery codes');
