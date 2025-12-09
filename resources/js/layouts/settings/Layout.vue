@@ -2,7 +2,7 @@
 import Heading from '@/components/Heading.vue';
 import { urlIsActive } from '@/lib/utils';
 // import manquant supprimé : '@/routes/appearance'
-import { edit as editProfile } from '@/routes/profile';
+// import manquant supprimé : '@/routes/profile'
 import { show } from '@/routes/two-factor';
 import { edit as editPassword } from '@/routes/user-password';
 import { type NavItem } from '@/types';
@@ -11,7 +11,7 @@ import { Link } from '@inertiajs/vue3';
 const sidebarNavItems: NavItem[] = [
     {
         title: 'Profile',
-        href: editProfile(),
+        href: '#', // lien désactivé, à adapter si besoin
     },
     {
         title: 'Password',
