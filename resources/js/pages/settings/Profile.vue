@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // Import supprimé : le contrôleur n'existe pas côté front
-import { edit } from '@/routes/profile';
+// import supprimé : le fichier n'existe pas
 import { send } from '@/routes/verification';
 import { Form, Head, Link, usePage } from '@inertiajs/vue3';
 
@@ -21,7 +21,7 @@ defineProps<Props>();
 const breadcrumbItems: BreadcrumbItem[] = [
     {
         title: 'Profile settings',
-        href: edit().url,
+        href: '/settings/profile',
     },
 ];
 
