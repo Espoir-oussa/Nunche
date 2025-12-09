@@ -5,7 +5,7 @@ import TwoFactorSetupModal from '@/components/TwoFactorSetupModal.vue';
 import { useTwoFactorAuth } from '@/composables/useTwoFactorAuth';
 import AppLayout from '@/layouts/AppLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
-import { disable, enable, show } from '@/routes/two-factor';
+// import { disable, enable, show } from '@/routes/two-factor'; // supprimé : fichier inexistant
 import { BreadcrumbItem } from '@/types';
 import { Form, Head } from '@inertiajs/vue3';
 import { ShieldBan, ShieldCheck } from 'lucide-vue-next';
@@ -24,7 +24,7 @@ withDefaults(defineProps<Props>(), {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Two-Factor Authentication',
-        href: show.url(),
+        href: '/settings/two-factor', // fallback URL
     },
 ];
 
@@ -67,16 +67,9 @@ onUnmounted(() => {
                         >
                             <ShieldCheck />Continue Setup
                         </button>
-                        <Form
-                            v-else
-                            v-bind="enable.form()"
-                            @success="showSetupModal = true"
-                            #default="{ processing }"
-                        >
-                            <button type="submit" :disabled="processing" class="px-4 py-2 rounded bg-green-600 text-white flex items-center gap-2">
-                                <ShieldCheck />Enable 2FA
-                            </button>
-                        </Form>
+                        <button disabled class="px-4 py-2 rounded bg-green-300 text-white flex items-center gap-2 opacity-50 cursor-not-allowed">
+                            <ShieldCheck />Enable 2FA (désactivé)
+                        </button>
                     </div>
                 </div>
 
@@ -96,16 +89,10 @@ onUnmounted(() => {
                     <TwoFactorRecoveryCodes />
 
                     <div class="relative inline">
-                        <Form v-bind="disable.form()" #default="{ processing }">
-                            <button
-                                type="submit"
-                                :disabled="processing"
-                                class="px-4 py-2 rounded bg-red-600 text-white flex items-center gap-2"
-                            >
-                                <ShieldBan />
-                                Disable 2FA
-                            </button>
-                        </Form>
+                        <button disabled class="px-4 py-2 rounded bg-red-300 text-white flex items-center gap-2 opacity-50 cursor-not-allowed">
+                            <ShieldBan />
+                            Disable 2FA (désactivé)
+                        </button>
                     </div>
                 </div>
 
