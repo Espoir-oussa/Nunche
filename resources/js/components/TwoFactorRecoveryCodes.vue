@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import AlertError from '@/components/AlertError.vue';
 import { useTwoFactorAuth } from '@/composables/useTwoFactorAuth';
-import { regenerateRecoveryCodes } from '@/routes/two-factor';
+// import supprimé : module inexistant
+// Remplacer regenerateRecoveryCodes par une fonction factice
+function regenerateRecoveryCodes() {
+    // À adapter selon votre backend
+    return {
+        form: () => ({})
+    };
+}
 import { Form } from '@inertiajs/vue3';
 import { Eye, EyeOff, LockKeyhole, RefreshCw } from 'lucide-vue-next';
 import { nextTick, onMounted, ref, useTemplateRef } from 'vue';

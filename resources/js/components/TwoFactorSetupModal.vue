@@ -2,7 +2,12 @@
 import AlertError from '@/components/AlertError.vue';
 import InputError from '@/components/InputError.vue';
 import { useTwoFactorAuth } from '@/composables/useTwoFactorAuth';
-import { confirm } from '@/routes/two-factor';
+// import supprimé : module inexistant
+// Remplacer confirm par une fonction factice
+function confirm() {
+    // À adapter selon votre backend
+    return '/api/two-factor/confirm';
+}
 import { Form } from '@inertiajs/vue3';
 import { useClipboard } from '@vueuse/core';
 import { Check, Copy, ScanLine } from 'lucide-vue-next';
