@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AppLogoIcon from '@/components/AppLogoIcon.vue';
-import { home } from '@/routes';
+// import manquant supprimé : '@/routes'
 import { Link } from '@inertiajs/vue3';
 
 defineProps<{
@@ -17,8 +17,9 @@ defineProps<{
             <div class="flex flex-col gap-8">
                 <div class="flex flex-col items-center gap-4">
                     <Link
-                        :href="home()"
+                        href="#"
                         class="flex flex-col items-center gap-2 font-medium"
+                        aria-disabled="true"
                     >
                         <div
                             class="mb-1 flex h-9 w-9 items-center justify-center rounded-md"
