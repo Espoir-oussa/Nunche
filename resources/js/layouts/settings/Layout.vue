@@ -3,7 +3,7 @@ import Heading from '@/components/Heading.vue';
 import { urlIsActive } from '@/lib/utils';
 // import manquant supprimé : '@/routes/appearance'
 // import manquant supprimé : '@/routes/profile'
-import { show } from '@/routes/two-factor';
+// import manquant supprimé : '@/routes/two-factor'
 import { edit as editPassword } from '@/routes/user-password';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
@@ -19,7 +19,7 @@ const sidebarNavItems: NavItem[] = [
     },
     {
         title: 'Two-Factor Auth',
-        href: show(),
+        href: '#', // lien désactivé, à adapter si besoin
     },
     {
         title: 'Appearance',
