@@ -4,7 +4,7 @@ import { urlIsActive } from '@/lib/utils';
 // import manquant supprimé : '@/routes/appearance'
 // import manquant supprimé : '@/routes/profile'
 // import manquant supprimé : '@/routes/two-factor'
-import { edit as editPassword } from '@/routes/user-password';
+// import manquant supprimé : '@/routes/user-password'
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
 
@@ -15,7 +15,7 @@ const sidebarNavItems: NavItem[] = [
     },
     {
         title: 'Password',
-        href: editPassword(),
+        href: '#', // lien désactivé, à adapter si besoin
     },
     {
         title: 'Two-Factor Auth',
