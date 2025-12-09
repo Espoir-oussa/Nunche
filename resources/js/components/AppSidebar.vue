@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { dashboard } from '@/routes';
+// import cassé supprimé
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
@@ -8,7 +8,7 @@ import AppLogo from './AppLogo.vue';
 const mainNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: dashboard(),
+        href: '#', // lien désactivé, route cassée
         icon: LayoutGrid,
     },
 ];
@@ -30,7 +30,7 @@ const footerNavItems: NavItem[] = [
 <template>
     <aside class="w-64 bg-gray-50 border-r flex flex-col h-full">
         <div class="p-4 border-b">
-            <Link :href="dashboard()">
+            <Link href="#" style="pointer-events: none; opacity: 0.5;">
                 <AppLogo />
             </Link>
         </div>
