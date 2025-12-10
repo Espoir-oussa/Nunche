@@ -22,7 +22,6 @@ php artisan storage:link || echo "⚠ Storage link already exists"
 echo "▶ Clearing and caching config..."
 php artisan config:clear
 php artisan config:cache
-php artisan route:cache
 php artisan view:cache
 
 echo "▶ Running migrations..."
