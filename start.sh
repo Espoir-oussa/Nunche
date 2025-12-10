@@ -14,7 +14,13 @@ chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 echo "▶ Generating application key..."
-php artisan key:generate --force
+APP_KEY=$(php artisan key:generate --show)
+if [ -n "$APP_KEY" ]; then
+    sed -i "s|APP_KEY=.*|APP_KEY=$APP_KEY|g" /var/www/html/.env
+    echo "   APP_KEY generated successfully"
+else
+    echo "⚠ Failed to generate APP_KEY"
+fi
 
 echo "▶ Creating storage link..."
 php artisan storage:link || echo "⚠ Storage link already exists"
