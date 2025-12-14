@@ -92,7 +92,10 @@ chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /
 chmod -R 777 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/public/build
 
 echo "▶ Running migrations..."
-php artisan migrate --force || echo "⚠ Migration error (ignored)"
+php artisan migrate --force --no-interaction || echo "⚠ Migration error (ignored)"
+
+echo "▶ Seeding database..."
+php artisan db:seed --force --no-interaction || echo "⚠ Seeding error (ignored)"
 
 echo "▶ Asset verification..."
 if [ -f "public/build/manifest.json" ]; then
