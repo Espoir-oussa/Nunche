@@ -28,13 +28,25 @@ COPY . .
 # ---- Installer dépendances PHP ----
 RUN composer install --no-dev --optimize-autoloader
 
-# ---- Installer dépendances frontend et build ----
+# ---- Installer dépendances frontend MAIS NE PAS BUILD ICI ----
 RUN npm ci
+
+# ---- Créer .env temporaire pour le build (optionnel) ----
+RUN if [ -f ".env.example" ]; then \
+    cp .env.example .env && \
+    echo "APP_URL=http://localhost" >> .env && \
+    echo "VITE_APP_URL=http://localhost" >> .env; \
+fi
+
+# ---- Build avec config temporaire ----
 RUN npm run build
 
+# ---- Nettoyer .env temporaire ----
+RUN rm -f .env
+
 # ---- Donner les droits pour Laravel ----
-RUN chown -R www-data:www-data storage bootstrap/cache
-RUN chmod -R 775 storage bootstrap/cache
+RUN chown -R www-data:www-data storage bootstrap/cache public/build
+RUN chmod -R 775 storage bootstrap/cache public/build
 
 # ---- Copier le script de démarrage ----
 COPY start.sh /usr/local/bin/start.sh
