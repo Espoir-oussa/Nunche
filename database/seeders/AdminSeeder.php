@@ -19,12 +19,12 @@ class AdminSeeder extends Seeder
         ]);
 
         User::updateOrCreate([
-            'email' => 'admin@nunche.com',
+            'email' => 'maurice.comlan@uac.bj',
         ], [
             'nom' => 'Admin',
             'prenom' => 'Super',
-            'email' => 'admin@nunche.com',
-            'password' => Hash::make('admin123'),
+            'email' => 'maurice.comlan@uac.bj',
+            'password' => Hash::make('Eneam123'),
             'sexe' => SexeEnum::M,
             'statut' => UserStatus::ACTIF,
             'role_id' => $role->id,
