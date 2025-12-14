@@ -6,52 +6,45 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Langue;
 use App\Enums\RoleEnum;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        // Crée le rôle 'lecteur' si inexistant
-        $lecteurRole = Role::firstOrCreate([
-                'nom_role' => RoleEnum::LECTEUR,
-        ]);
-
-        // Crée la langue par défaut si inexistant
-        $defaultLangue = Langue::firstOrCreate([
-            'code_langue' => 'fr',
-        ], [
-            'nom_langue' => 'Français',
-            'description' => 'Langue française',
-        ]);
-
-        // Crée l'utilisateur de test avec les clés étrangères valides
-        User::factory()->create([
-            'nom' => 'Test',
-            'prenom' => 'User',
-            'email' => 'test@example.com',
-            'role_id' => $lecteurRole->id,
-            'langue_id' => $defaultLangue->id,
-            'statut' => 'actif',
-        ]);
-
+        // 1. Tables de référence ESSENTIELLES
         $this->call([
-            LangueSeeder::class,
-            AdminSeeder::class,
+            LangueSeeder::class,      // Pour avoir la langue ID 1
+            RoleSeeder::class,        // Pour créer tous les rôles (dont ADMIN)
+        ]);
+
+        // 2. VOTRE AdminSeeder (peut s'exécuter seul)
+        $this->call([
+            AdminSeeder::class,       // Crée le super admin
+        ]);
+
+        // 3. Optionnel : autres tables de référence
+        $this->call([
             RegionSeeder::class,
             TypeMediaSeeder::class,
             TypeContenuSeeder::class,
-            // UserSeeder::class,
-            // MediaSeeder::class,
-            // CommentaireSeeder::class,
-            // ContenuSeeder::class,
-            // ParlerSeeder::class,
         ]);
+
+        // 4. Optionnel : utilisateur de test (non-admin)
+        $lecteurRole = Role::where('nom_role', RoleEnum::LECTEUR)->first();
+        $defaultLangue = Langue::where('code_langue', 'fr')->first();
+
+        if ($lecteurRole && $defaultLangue) {
+            User::factory()->create([
+                'nom' => 'Test',
+                'prenom' => 'User',
+                'email' => 'test@example.com',
+                'password' => Hash::make('password123'), // N'oubliez pas Hash
+                'role_id' => $lecteurRole->id,
+                'langue_id' => $defaultLangue->id,
+                'statut' => 'actif',
+            ]);
+        }
     }
 }
