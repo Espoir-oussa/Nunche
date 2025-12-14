@@ -64,15 +64,23 @@ php artisan cache:clear
 php artisan route:clear
 php artisan view:clear
 
-# 🎯 CORRECTION CRITIQUE : Rebuild des assets avec la bonne URL
-echo "▶ Rebuilding assets with correct APP_URL..."
-if [ -n "$APP_URL" ]; then
-    echo "   Using APP_URL: $APP_URL"
-    # Force le rebuild avec les bonnes variables
-    npm run build
-else
-    echo "   APP_URL not set, building with default configuration"
-    npm run build
+# # 🎯 CORRECTION CRITIQUE : Rebuild des assets avec la bonne URL
+# echo "▶ Rebuilding assets with correct APP_URL..."
+# if [ -n "$APP_URL" ]; then
+#     echo "   Using APP_URL: $APP_URL"
+#     # Force le rebuild avec les bonnes variables
+#     npm run build
+# else
+#     echo "   APP_URL not set, building with default configuration"
+#     npm run build
+# fi
+
+
+# À la place de toute la section "Rebuilding assets", mettez :
+echo "▶ Verifying assets..."
+if [ ! -f "public/build/manifest.json" ]; then
+    echo "⚠ Warning: Vite manifest not found!"
+    # Optionnel : vous pouvez logger un warning mais ne pas builder
 fi
 
 echo "▶ Caching config..."
