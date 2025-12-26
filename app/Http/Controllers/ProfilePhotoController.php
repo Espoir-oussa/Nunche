@@ -16,7 +16,7 @@ class ProfilePhotoController extends Controller
 
         $user = Auth::user();
         $file = $request->file('photo');
-        $path = $file->store('profile-photos', 'public');
+        $path = $file->store('profile-photos', 'cloudinary');
         $user->profile_photo_path = $path;
         $user->save();
 

@@ -56,7 +56,7 @@ class MediaController extends Controller
         ]);
 
         if ($request->hasFile('chemin')) {
-            $path = $request->file('chemin')->store('medias', 'public');
+            $path = $request->file('chemin')->store('medias', 'cloudinary');
             $validated['chemin'] = $path;
         }
 

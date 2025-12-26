@@ -5,7 +5,7 @@
         <!-- Logo -->
         <div class="flex items-center justify-center h-16 px-4 border-b border-gray-200 flex-shrink-0">
             <Link href="/dashboard" class="flex items-center space-x-2">
-                <img src="/logo_noir.png" alt="ContesDuBénin - Logo blanc"
+                <img src="/logo_noir.png" alt="nunche - Logo blanc"
                     class="h-8 sm:h-8 transition-opacity duration-300" />
             </Link>
         </div>

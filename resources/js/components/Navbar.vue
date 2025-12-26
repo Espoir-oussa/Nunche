@@ -9,14 +9,14 @@
         <img
           v-if="!scrolled"
           src="/logo_blanc.png"
-          alt="ContesDuBénin - Logo blanc"
+          alt="nunche - Logo blanc"
           class="h-8 sm:h-8 transition-opacity duration-300"
         />
         <!-- Logo noir (visible quand scrollé) -->
         <img
           v-else
           src="/logo_noir.png"
-          alt="ContesDuBénin - Logo noir"
+          alt="nunche - Logo noir"
           class="h-8 sm:h-8 transition-opacity duration-300"
         />
       </Link>

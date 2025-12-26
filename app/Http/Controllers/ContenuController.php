@@ -163,7 +163,7 @@ class ContenuController extends Controller
 
         // Upload et association du média principal
         if ($request->hasFile('media')) {
-            $path = $request->file('media')->store('medias', 'public');
+            $path = $request->file('media')->store('medias', 'cloudinary');
             \App\Models\Media::create([
                 'chemin' => $path,
                 'description' => 'Image principale',

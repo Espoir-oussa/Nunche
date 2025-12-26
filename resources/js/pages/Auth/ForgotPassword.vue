@@ -2,7 +2,7 @@
   <div class="min-h-screen relative flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
     <Link href="/" class="absolute top-6 left-6 z-20">
       <div class="font-bold text-2xl text-white tracking-tight">
-        ContesDuBénin
+        nunche
       </div>
     </Link>
 

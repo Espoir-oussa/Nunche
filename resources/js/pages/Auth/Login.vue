@@ -2,7 +2,7 @@
   <div class="min-h-screen relative flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
     <Link href="/" class="absolute top-6 left-6 z-20">
       <div class="font-bold text-2xl text-white tracking-tight">
-        ContesDuBénin
+        nunche
       </div>
     </Link>
 
@@ -25,7 +25,7 @@
           Connectez-vous
         </h2>
         <p class="mt-2 text-sm text-gray-300">
-          Accédez à votre compte ContesDuBénin
+          Accédez à votre compte nunche
         </p>
       </div>
 
