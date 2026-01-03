@@ -72,8 +72,33 @@
     </section>
 
     <!-- SECTION : FILTRES ET CONTENUS -->
-    <section class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-amber-50">
+    <section id="contenus" class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-amber-50">
       <div class="max-w-7xl mx-auto">
+
+        <!-- En-tête avec titre et bouton -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          <div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">
+              Contenus de la région
+              <span class="text-orange-500">{{ region.nom_region }}</span>
+            </h2>
+            <p class="text-gray-600">
+              Découvrez {{ filteredContenus.length }} contenus culturels et linguistiques
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <Link href="/discover"
+                  class="px-6 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-medium rounded-lg hover:from-orange-600 hover:to-amber-600 transition-all flex items-center gap-2 shadow-md hover:shadow-lg">
+              <Eye class="w-5 h-5" />
+              Voir tous les contenus
+            </Link>
+            <button @click="resetFilters"
+                    v-if="selectedType || selectedLangue"
+                    class="px-6 py-3 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 transition-all">
+              Réinitialiser les filtres
+            </button>
+          </div>
+        </div>
 
         <!-- Grille des contenus -->
         <div v-if="filteredContenus.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -189,10 +214,13 @@
           <p class="text-gray-600 mb-6 max-w-md mx-auto">
             Aucun contenu ne correspond à vos filtres pour la région {{ region.nom_region }}.
           </p>
-          <button @click="selectedType = null; selectedLangue = null"
-                  class="px-6 py-3 bg-orange-500 text-white rounded-full font-semibold hover:bg-orange-600 transition-colors">
-            Voir tous les contenus
-          </button>
+          <div class="flex flex-wrap justify-center gap-4">
+            <Link href="/discover"
+                  class="px-6 py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-medium rounded-lg hover:from-orange-600 hover:to-amber-600 transition-all flex items-center gap-2">
+              <Eye class="w-4 h-4" />
+              Explorer tous les contenus
+            </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -349,6 +377,12 @@ const formatDate = (dateString: string) => {
 // Navigation
 const voirContenu = (id: number) => {
   router.visit(`/contenu/${id}`);
+};
+
+// Fonction pour réinitialiser les filtres
+const resetFilters = () => {
+  selectedType.value = null;
+  selectedLangue.value = null;
 };
 </script>
 

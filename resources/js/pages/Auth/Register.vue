@@ -1,10 +1,40 @@
 <template>
-  <div class="min-h-screen relative flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
-    <Link href="/" class="absolute top-6 left-6 z-20">
-      <div class="font-bold text-2xl text-white tracking-tight">
-        nunche
+  <div class="min-h-screen relative flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <!-- Barre de navigation fixe en haut -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-transparent py-6">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 flex justify-between items-center">
+        <!-- Logo à gauche -->
+        <Link href="/" class="flex items-center space-x-2">
+          <div
+            class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-r from-orange-500 to-amber-500 shadow-md"
+          >
+            <svg
+              class="w-6 h-6 text-white"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <span class="text-2xl font-bold text-white tracking-tight hidden sm:inline">
+            Nunche
+          </span>
+        </Link>
+
+        <!-- Lien "Se connecter" à droite -->
+        <div class="flex items-center space-x-4">
+          <span class="text-sm text-gray-300 hidden sm:inline">
+            Déjà un compte ?
+          </span>
+          <Link
+            :href="route('login')"
+            class="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg hover:bg-white/20 transition-all duration-300 text-sm font-medium"
+          >
+            Se connecter
+          </Link>
+        </div>
       </div>
-    </Link>
+    </nav>
 
     <!-- Vidéo de fond -->
     <img
@@ -82,14 +112,14 @@
           <div>
             <InputLabel for="sexe" value="Sexe" class="text-white text-sm" />
             <select
-  id="sexe"
-  v-model="form.sexe"
-  class="mt-1 block w-full bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:border-orange-500 focus:ring-orange-500 text-sm py-2 px-3"
->
-  <option value="" disabled style="background-color: white; color: black;">Sélectionnez votre sexe</option>
-  <option value="M" style="background-color: white; color: black;">Masculin</option>
-  <option value="F" style="background-color: white; color: black;">Féminin</option>
-</select>
+              id="sexe"
+              v-model="form.sexe"
+              class="mt-1 block w-full bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:border-orange-500 focus:ring-orange-500 text-sm py-2 px-3"
+            >
+              <option value="" disabled>Sélectionnez votre sexe</option>
+              <option value="M">Masculin</option>
+              <option value="F">Féminin</option>
+            </select>
             <InputError class="mt-1" :message="form.errors.sexe" />
           </div>
 
@@ -156,8 +186,8 @@
           </button>
         </div>
 
-        <!-- Lien vers la connexion -->
-        <div class="text-center pt-3 border-t border-white/20">
+        <!-- Lien vers la connexion (version mobile) -->
+        <div class="text-center pt-3 border-t border-white/20 sm:hidden">
           <p class="text-xs text-gray-300">
             Déjà un compte ?
             <Link :href="route('login')" class="font-medium text-orange-400 hover:text-orange-300 underline">
@@ -170,7 +200,7 @@
   </div>
 </template>
 
-<script setup lang ="ts">
+<script setup lang="ts">
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { route } from 'ziggy-js';
 import InputError from '@/components/InputError.vue';

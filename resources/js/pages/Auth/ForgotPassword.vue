@@ -1,10 +1,37 @@
 <template>
-  <div class="min-h-screen relative flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
-    <Link href="/" class="absolute top-6 left-6 z-20">
-      <div class="font-bold text-2xl text-white tracking-tight">
-        nunche
+  <div class="min-h-screen relative flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <!-- Barre de navigation fixe en haut -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-transparent py-6">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 flex justify-between items-center">
+        <!-- Logo à gauche -->
+        <Link href="/" class="flex items-center space-x-2">
+          <div
+            class="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-r from-orange-500 to-amber-500 shadow-md"
+          >
+            <svg
+              class="w-6 h-6 text-white"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <span class="text-2xl font-bold text-white tracking-tight hidden sm:inline">
+            Nunche
+          </span>
+        </Link>
+
+        <!-- Lien "Se connecter" à droite -->
+        <div class="flex items-center space-x-4">
+          <Link
+            :href="route('login')"
+            class="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-lg hover:bg-white/20 transition-all duration-300 text-sm font-medium"
+          >
+            Se connecter
+          </Link>
+        </div>
       </div>
-    </Link>
+    </nav>
 
     <!-- Vidéo de fond -->
     <img
@@ -83,8 +110,8 @@
           </button>
         </div>
 
-        <!-- Liens de navigation -->
-        <div class="text-center pt-4 border-t border-white/20">
+        <!-- Liens de navigation (version mobile) -->
+        <div class="text-center pt-4 border-t border-white/20 sm:hidden">
           <div class="space-y-2">
             <p class="text-xs text-gray-300">
               Vous vous souvenez de votre mot de passe ?
@@ -105,7 +132,7 @@
   </div>
 </template>
 
-<script setup lang ="ts">
+<script setup lang="ts">
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { route } from 'ziggy-js';
 import InputError from '@/components/InputError.vue';
