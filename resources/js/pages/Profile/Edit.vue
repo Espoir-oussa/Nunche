@@ -6,7 +6,7 @@
             <div class="flex items-center space-x-4">
                 <div class="flex-shrink-0">
                     <img
-                        :src="$page.props.auth.user.profile_photo_url || '/images/default-avatar.png'"
+                        :src="$page.props.auth.user.profile_photo_url"
                         :alt="$page.props.auth.user.name"
                         class="w-12 h-12 rounded-full object-cover border-2 border-orange-200"
                     />

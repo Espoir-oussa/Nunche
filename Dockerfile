@@ -21,45 +21,28 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs
 
-# ---- Copier UNIQUEMENT les fichiers de dépendances en premier ----
+# ---- Copier tout d'un coup (simplifié pour Render) ----
 WORKDIR /var/www/html
-
-# Copier les fichiers de configuration des dépendances (optimisation cache)
-COPY composer.json composer.lock package.json package-lock.json* ./
-
-# ---- Installer dépendances PHP (avec cache) ----
-RUN composer install --no-dev --no-scripts --no-autoloader \
-    && composer clear-cache
-
-# ---- Installer dépendances Node (avec cache) ----
-RUN npm ci --no-audit --prefer-offline
-
-# ---- Copier le reste de l'application ----
 COPY . .
 
-# ---- Autoload et optimisations ----
-RUN composer dump-autoload --optimize \
-    && composer run-script post-install-cmd --no-interaction
+# ---- Installer dépendances ----
+RUN composer install --no-dev --optimize-autoloader --no-scripts \
+    && npm ci --no-audit
 
-# ---- Build des assets avec APP_URL par défaut ----
+# ---- Build des assets avec config minimale ----
 RUN echo "APP_URL=http://localhost" > .env \
     && echo "VITE_APP_URL=http://localhost" >> .env \
     && npm run build \
     && rm .env
 
 # ---- Créer la structure de stockage ----
-RUN mkdir -p /var/www/html/storage/app/public \
-    /var/www/html/storage/framework/cache \
-    /var/www/html/storage/framework/sessions \
-    /var/www/html/storage/framework/views \
-    /var/www/html/storage/logs
-
-# ---- Créer le lien symbolique pour le stockage ----
-RUN php artisan storage:link
-
-# ---- Permissions correctes ----
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN mkdir -p storage/app/public \
+    storage/framework/cache \
+    storage/framework/sessions \
+    storage/framework/views \
+    storage/logs \
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
 # ---- Copier le script de démarrage ----
 COPY start.sh /usr/local/bin/start.sh

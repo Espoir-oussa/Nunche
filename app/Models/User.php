@@ -3,16 +3,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
 use App\Models\Role;
 use App\Models\Langue;
-use App\Models\Commentaire;
-use App\Models\Contenu;
 use App\Enums\SexeEnum;
+use App\Models\Contenu;
 use App\Enums\UserStatus;
+use App\Models\Commentaire;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -73,10 +74,21 @@ class User extends Authenticatable
     }
 
     public function getProfilePhotoUrlAttribute()
-    {
-        if ($this->profile_photo_path) {
-            return asset('storage/' . $this->profile_photo_path);
-        }
-        return '/images/default-avatar.png';
+{
+    if (!$this->profile_photo_path) {
+        return asset('images/default-avatar.png');
     }
+
+    // Si déjà une URL, retourner directement
+    if (strpos($this->profile_photo_path, 'http') === 0) {
+        return $this->profile_photo_path;
+    }
+
+    // Sinon, générer depuis Cloudinary
+    try {
+        return Storage::disk('cloudinary')->url($this->profile_photo_path);
+    } catch (\Exception $e) {
+        return asset('images/default-avatar.png');
+    }
+}
 }
