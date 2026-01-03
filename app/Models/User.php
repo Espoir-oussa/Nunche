@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Models;
 
 use App\Models\Role;
@@ -12,6 +11,7 @@ use App\Models\Commentaire;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -28,7 +28,7 @@ class User extends Authenticatable
         'date_naissance',
         'date_inscription',
         'statut',
-        'photo',
+        'photo', // Ta colonne dans la base
         'role_id',
         'langue_id',
     ];
@@ -47,6 +47,53 @@ class User extends Authenticatable
         'sexe' => SexeEnum::class,
         'statut' => UserStatus::class,
     ];
+
+    /**
+     * Accesseur pour profile_photo_path (attendu par Fortify)
+     * Cette méthode permet d'utiliser $user->profile_photo_path
+     * alors que la colonne s'appelle 'photo'
+     */
+    protected function profilePhotoPath(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->photo,
+            set: fn ($value) => $this->attributes['photo'] = $value,
+        );
+    }
+
+    /**
+     * Accesseur pour l'URL de la photo de profil
+     * Utilisé dans les vues via $user->profile_photo_url
+     */
+    public function getProfilePhotoUrlAttribute()
+    {
+        // Si pas de photo, retourner l'image par défaut
+        if (!$this->photo) {
+            return asset('images/default-avatar.png');
+        }
+
+        // Si c'est déjà une URL complète (Cloudinary), la retourner directement
+        if (str_starts_with($this->photo, 'http')) {
+            return $this->photo;
+        }
+
+        // Si c'est un chemin Cloudinary (ex: "profile-photos/filename.jpg")
+        // Générer l'URL complète via Storage
+        try {
+            return Storage::disk('cloudinary')->url($this->photo);
+        } catch (\Exception $e) {
+            \Log::error('Erreur génération URL Cloudinary: ' . $e->getMessage());
+            return asset('images/default-avatar.png');
+        }
+    }
+
+    /**
+     * Nom complet de l'utilisateur (utile pour les vues)
+     */
+    public function getNameAttribute()
+    {
+        return $this->prenom . ' ' . $this->nom;
+    }
 
     public function role()
     {
@@ -72,23 +119,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Contenu::class, 'moderateur_id');
     }
-
-    public function getProfilePhotoUrlAttribute()
-{
-    if (!$this->profile_photo_path) {
-        return asset('images/default-avatar.png');
-    }
-
-    // Si déjà une URL, retourner directement
-    if (strpos($this->profile_photo_path, 'http') === 0) {
-        return $this->profile_photo_path;
-    }
-
-    // Sinon, générer depuis Cloudinary
-    try {
-        return Storage::disk('cloudinary')->url($this->profile_photo_path);
-    } catch (\Exception $e) {
-        return asset('images/default-avatar.png');
-    }
-}
 }

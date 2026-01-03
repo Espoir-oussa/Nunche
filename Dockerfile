@@ -29,6 +29,9 @@ COPY . .
 RUN composer install --no-dev --optimize-autoloader --no-scripts \
     && npm ci --no-audit
 
+# ---- Installer Flysystem Cloudinary ----
+RUN composer require league/flysystem-cloudinary
+
 # ---- Build des assets avec config minimale ----
 RUN echo "APP_URL=http://localhost" > .env \
     && echo "VITE_APP_URL=http://localhost" >> .env \
