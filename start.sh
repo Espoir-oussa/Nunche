@@ -24,9 +24,7 @@ inject_env() {
     local value="$2"
 
     if [ -n "$value" ]; then
-        # Échapper les caractères spéciaux pour sed
         local escaped_value=$(echo "$value" | sed 's/[\/&]/\\&/g')
-
         if grep -q "^$key=" "$ENV_FILE"; then
             sed -i "s|^$key=.*|$key=$escaped_value|g" "$ENV_FILE"
         else
@@ -39,102 +37,73 @@ inject_env() {
 echo "🔧 Injection des variables..."
 
 # ---- VARIABLES CRITIQUES ----
-
-# 1. Application
 inject_env "APP_NAME" "$APP_NAME"
 inject_env "APP_ENV" "$APP_ENV"
 inject_env "APP_DEBUG" "$APP_DEBUG"
 inject_env "APP_URL" "$APP_URL"
 inject_env "APP_KEY" "$APP_KEY"
-
-# 2. Database
 inject_env "DB_CONNECTION" "$DB_CONNECTION"
 inject_env "DB_HOST" "$DB_HOST"
 inject_env "DB_PORT" "$DB_PORT"
 inject_env "DB_DATABASE" "$DB_DATABASE"
 inject_env "DB_USERNAME" "$DB_USERNAME"
 inject_env "DB_PASSWORD" "$DB_PASSWORD"
-
-# 3. CLOUDINARY (TRÈS IMPORTANT !!!)
 inject_env "CLOUDINARY_URL" "$CLOUDINARY_URL"
 inject_env "FILESYSTEM_DRIVER" "$FILESYSTEM_DRIVER"
 
-# Si CLOUDINARY_URL n'est pas définie mais que FILESYSTEM_DRIVER=cloudinary
 if [ "$FILESYSTEM_DRIVER" = "cloudinary" ] && [ -z "$CLOUDINARY_URL" ]; then
     echo "⚠️  ATTENTION: FILESYSTEM_DRIVER=cloudinary mais CLOUDINARY_URL non définie!"
-    echo "   Les uploads ne fonctionneront pas sans Cloudinary!"
 fi
 
-# 4. URLs pour Vite/Assets (toujours synchroniser avec APP_URL)
 if [ -n "$APP_URL" ]; then
     inject_env "VITE_APP_URL" "$APP_URL"
     inject_env "ASSET_URL" "$APP_URL"
 fi
 
 # ---- 3. Configuration Cloudinary ----
-echo "☁️  Configuration Cloudinary..."
-
 if [ "$FILESYSTEM_DRIVER" = "cloudinary" ] && [ -n "$CLOUDINARY_URL" ]; then
     echo "   ✅ Cloudinary configuré"
-
-    # Extraire les infos de CLOUDINARY_URL pour les variables séparées (si besoin)
-    # cloudinary://API_KEY:API_SECRET@CLOUD_NAME
-
-    # S'assurer que le disque est bien configuré
     if ! grep -q "FILESYSTEM_DISK=" "$ENV_FILE"; then
         echo "FILESYSTEM_DISK=cloudinary" >> "$ENV_FILE"
     fi
 else
-    echo "   ⚠️  Utilisation du stockage local (images perdues au redéploiement)"
     inject_env "FILESYSTEM_DISK" "public"
 fi
 
-# ---- 4. Stockage (toujours créer le lien pour compatibilité) ----
+# ---- 4. Stockage ----
 echo "📁 Configuration du stockage..."
 php artisan storage:link --force 2>/dev/null || true
-
-# Permissions minimales
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# ---- INITIALISATION BASE DE DONNÉES ----
-echo "🗄️  Initialisation de la base de données..."
-
-php artisan migrate --force
-
-
-# ---- 5. Cache et optimisation ----
-echo "⚡ Optimisation..."
-
-# Clear cache
+# ---- 5. Clear cache config avant DB ----
 php artisan config:clear
+
+# ---- 6. Initialisation base + seeders ----
+echo "🗄️  Migration de la base et seeders..."
+php artisan migrate --force
+php artisan db:seed --force || true
+
+# ---- 7. Optimisation ----
+echo "⚡ Optimisation..."
 php artisan cache:clear
 php artisan view:clear
 php artisan route:clear
-
-# Cache de production
 php artisan config:cache
 php artisan view:cache
 
-# ---- 6. Vérification des assets ----
+# ---- 8. Vérification des assets ----
 echo "🎨 Vérification des assets..."
-
 if [ -f "public/build/manifest.json" ]; then
     echo "   ✅ Manifest Vite trouvé"
-
-    # Corriger les URLs si nécessaire
-    if [ -n "$APP_URL" ]; then
-        APP_URL_CLEAN=$(echo "$APP_URL" | sed 's|https\?://||')
-
-        # Remplacer localhost par l'URL réelle
-        sed -i "s|http://localhost|$APP_URL|g" public/build/manifest.json 2>/dev/null || true
-        sed -i "s|//localhost|//$APP_URL_CLEAN|g" public/build/manifest.json 2>/dev/null || true
-    fi
+    APP_URL_CLEAN=$(echo "$APP_URL" | sed 's|https\?://||')
+    sed -i "s|http://localhost|$APP_URL|g" public/build/manifest.json 2>/dev/null || true
+    sed -i "s|//localhost|//$APP_URL_CLEAN|g" public/build/manifest.json 2>/dev/null || true
 else
     echo "   ⚠️  Manifest Vite non trouvé - vérifiez le build"
 fi
 
-# ---- 7. Démarrer ----
+# ---- 9. Démarrage Apache ----
 echo "✅ Application prête !"
 echo "🌐 URL: $(grep 'APP_URL=' "$ENV_FILE" | cut -d= -f2 2>/dev/null || echo 'localhost')"
 echo "🔌 Port: ${PORT:-10000}"
