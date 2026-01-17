@@ -97,6 +97,12 @@ php artisan storage:link --force 2>/dev/null || true
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
+# ---- INITIALISATION BASE DE DONNÉES ----
+echo "🗄️  Initialisation de la base de données..."
+
+php artisan migrate --force
+
+
 # ---- 5. Cache et optimisation ----
 echo "⚡ Optimisation..."
 
