@@ -18,17 +18,37 @@ class AdminSeeder extends Seeder
             'nom_role' => RoleEnum::ADMIN,
         ]);
 
-        User::updateOrCreate([
-            'email' => 'maurice.comlan@uac.bj',
-        ], [
-            'nom' => 'Admin',
-            'prenom' => 'Super',
-            'email' => 'maurice.comlan@uac.bj',
-            'password' => Hash::make('Eneam123'),
-            'sexe' => SexeEnum::M,
-            'statut' => UserStatus::ACTIF,
-            'role_id' => $role->id,
-            'langue_id' => 1, // à adapter selon tes langues
-        ]);
+        $admins = [
+            [
+                'nom' => 'Admin',
+                'prenom' => 'Super',
+                'email' => 'maurice.comlan@uac.bj',
+                'password' => 'Eneam123',
+                'sexe' => SexeEnum::M,
+            ],
+            [
+                'nom' => 'OUSSA',
+                'prenom' => 'Espoir',
+                'email' => 'oussachadrac@gmail.com',
+                'password' => '19D1002619**',
+                'sexe' => SexeEnum::M,
+            ],
+        ];
+
+        foreach ($admins as $admin) {
+            User::updateOrCreate(
+                ['email' => $admin['email']],
+                [
+                    'nom' => $admin['nom'],
+                    'prenom' => $admin['prenom'],
+                    'email' => $admin['email'],
+                    'password' => Hash::make($admin['password']),
+                    'sexe' => $admin['sexe'],
+                    'statut' => UserStatus::ACTIF,
+                    'role_id' => $role->id,
+                    'langue_id' => 1,
+                ]
+            );
+        }
     }
 }
